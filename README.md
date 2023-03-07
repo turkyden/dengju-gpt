@@ -1,1 +1,1 @@
-<img width="1176" alt="截屏2023-03-07 17 13 09" src="https://user-images.githubusercontent.com/24560160/223376974-d95e9d17-9138-4352-b78d-3bedbca68ff9.png">
+![Slide 16_9 - 1 (1)](https://user-images.githubusercontent.com/24560160/223464736-7c3dddd6-028e-49ad-9150-0a3ac5e7fe35.png)
