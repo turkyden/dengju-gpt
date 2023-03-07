@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>140 行代码手写 chatgpt</title>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover"
+    />
+  </head>
+
+  <body>
+    <div id="app">
+      <h1 style="text-align: center;">Dengju GPT 🤖</h1>
+      <p style="text-align: center;">@dengjudeng</p>
+
+      <br />
+
+      <div style="text-align: center;">
+        <input
+          v-model="message"
+          style="width: calc(100% - 4rem); padding: 0.5rem;"
+          autofocus
+          :placeholder="isTyping ? 'Loading ...' : '问问 ChatGPT ...'"
+          type="text"
+          @keyup.enter="handleSend"
+        />
+      </div>
+
+      <br />
+
+      <ul v-for="(message, key) in messages" :key="key">
+        <li>
+          <div style="color: #ccc;">{{ message.role }}</div>
+          <div v-html="message.content"></div>
+        </li>
+      </ul>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            message: "",
+            isTyping: false,
+            messages: [
+              {
+                content: "Hi, 我是 ChatGPT！你可以问我任何事情！👋",
+                role: "assistant"
+              }
+            ]
+          };
+        },
+        methods: {
+          handleSend: async function () {
+            const newMessage = {
+              content: this.message,
+              role: "user"
+            };
+            const newMessages = [newMessage, ...this.messages];
+            this.messages = newMessages;
+            this.isTyping = true;
+            await this.processMessageToChatGPT(newMessages);
+            this.isTyping = false;
+          },
+          processMessageToChatGPT: async function (messages) {
+            const API_KEY =
+              "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";
+            const apiRequestBody = {
+              model: "gpt-3.5-turbo",
+              messages: messages
+            };
+            this.message = "";
+            const data = await fetch(
+              "https://api.openai.com/v1/chat/completions",
+              {
+                method: "POST",
+                headers: {
+                  Authorization: "Bearer " + API_KEY,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(apiRequestBody)
+              }
+            ).then((data) => data.json());
+            this.messages = [
+              {
+                content: data.choices[0].message.content,
+                role: "assistant"
+              },
+              ...messages
+            ];
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
