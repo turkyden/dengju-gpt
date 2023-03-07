@@ -26,6 +26,7 @@
           autofocus
           :placeholder="isTyping ? 'Loading ...' : '问问 ChatGPT ...'"
           type="text"
+          @blur="handleSend"
           @keyup.enter="handleSend"
         />
       </div>
