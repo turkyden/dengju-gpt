@@ -23,7 +23,7 @@
           v-model="message"
           style="width: calc(100% - 4rem); padding: 0.5rem;"
           autofocus
-          :placeholder="isTyping ? 'Loading ...' : '问问 ChatGPT ...'"
+          :placeholder="isTyping ? 'ChatGPT 正在组织语言 ...' : '问问 ChatGPT ...'"
           type="text"
           @blur="handleSend"
           @keyup.enter="handleSend"
@@ -34,7 +34,7 @@
 
       <ul v-for="(message, key) in [...messages].reverse()" :key="key">
         <li>
-          <div style="color: #ccc;">{{ message.role }}</div>
+          <div style="color: #6b7280;">{{ message.role }}</div>
           <div style="white-space: pre-wrap;">{{message.content}}</div>
         </li>
       </ul>
